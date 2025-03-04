@@ -1,0 +1,15 @@
+version: '2.3'
+services:
+  web:
+    build: .
+    ports:
+      - "8500:8500"
+    environment:
+      - NGROK_TOKEN=2bdirkXuBrXeF1gJU7YX4VsUrNE_7CDy4KG3CQXVkHimREjgp
+    runtime: nvidia
+    devices:
+      - "/dev/nvidia0:/dev/nvidia0"
+      - "/dev/nvidiactl:/dev/nvidiactl"
+      - "/dev/nvidia-uvm:/dev/nvidia-uvm"
+    volumes:
+      - /usr/local/nvidia:/usr/local/nvidia:ro

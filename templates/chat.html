@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Matrix Engine Local Chat</title>
+</head>
+<body>
+<h1>Chat Interface</h1>
+
+<form id="chatForm">
+    <label for="chatType">Select Model:</label>
+    <select id="chatType">
+    // llama3:instruct', 'llama3:latest', 'llama3:text', 'mistral:latest', 'phi3:instruct', 'phi3:latest', 'phi3:mini
+        <option value="llama-3">Llama 3 8B</option>
+        <option value="llama-3">Llama 3 70B</option>
+        <option value="llama3:instruct">llama3:instruct</option>
+        <option value="llama3:latest">llama3:latest</option>
+        <option value="llama3:text">llama3:text</option>
+        <option value="mistral:latest">mistral:latest</option>
+        <option value="phi3:instruct">phi3:instruct</option>
+        <option value="phi3:latest">phi3:latest</option>
+        <option value="phi3:mini">phi3:mini</option>
+    </select>
+    <input type="text" id="userMessage" placeholder="Type your message here...">
+    <button type="submit">Send</button>
+</form>
+
+<div id="responseArea"></div>
+
+<script>
+document.getElementById('chatForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Clear previous responses
+    const responseArea = document.getElementById('responseArea');
+    responseArea.innerText = '';  // Clear the previous response content
+
+    const userMessage = document.getElementById('userMessage').value;
+    fetch('/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({user_message: userMessage})
+    })
+    .then(response => {
+        const reader = response.body.getReader();
+        return new ReadableStream({
+            start(controller) {
+                function push() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) {
+                            controller.close();
+                            return;
+                        }
+                        // Convert the Uint8Array to a string
+                        const string = new TextDecoder("utf-8").decode(value);
+                        responseArea.innerText += string;
+                        controller.enqueue(value);
+                        push();
+                    }).catch(error => {
+                        console.error('Error reading the stream', error);
+                        controller.error(error);
+                    })
+                }
+                push();
+            }
+        });
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
+
+
+</body>
+</html>

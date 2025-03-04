@@ -1,0 +1,15 @@
+authtoken: 2bdirkXuBrXeF1gJU7YX4VsUrNE_7CDy4KG3CQXVkHimREjgp
+version: 2
+tunnels:
+  your_tunnel_name:
+    proto: http
+    hostname: aimatrix.ngrok.app
+    addr: 127.0.0.1:8500
+
+    # -------------------------
+    # Additional options
+    # -------------------------
+    # auth: "username:password"
+    # host_header: rewrite
+    # inspect: true
+    # bind_tls: true

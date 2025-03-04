@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "fastapiproject"
+version = "0.1.0"
+description = ""
+authors = ["armanisadeghi <132974515+armanisadeghi@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+ollama = "^0.1.9"
+fastapi = "^0.110.3"
+uvicorn = "^0.29.0"
+python-ngrok = "^0.1"
+ngrok = "^1.2.0"
+pyngrok = "^7.1.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
