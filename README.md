@@ -13,5 +13,3 @@ Web Interface                 http://127.0.0.1:4040
 Forwarding                    http://somesubdomain.ngrok.io -> http://localhost:8000
 Forwarding                    https://somesubdomain.ngrok.io -> http://localhost:8000
 
-
-# Docker not set up yet
