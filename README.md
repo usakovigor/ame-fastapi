@@ -5,7 +5,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 ngrok http 8000
 
-Session Status                online
+Session Status                online<br>
 Account                       our Account (Plan: Free)
 Version                       2.3.40
 Region                        United States (us)
